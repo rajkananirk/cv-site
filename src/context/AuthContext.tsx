@@ -11,39 +11,37 @@ interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
-  isLoading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const initializeAuth = async () => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        try {
-          const response = await fetch(`${BASE_URL}/api/auth/me`, {
-            headers: {
-              'Authorization': `Bearer ${token}`
-            }
-          });
+    // const initializeAuth = async () => {
+    //   const token = localStorage.getItem('token');
+    //   if (token) {
+    //     try {
+    //       const response = await fetch(`${BASE_URL}/api/auth/me`, {
+    //         headers: {
+    //           'Authorization': `Bearer ${token}`
+    //         }
+    //       });
           
-          if (response.ok) {
-            const userData = await response.json();
-            setUser(userData);
-          } else {
-            // localStorage.removeItem('token');
-          }
-        } catch (error) {
-          console.error('Auth initialization error:', error);
-          // localStorage.removeItem('token');
-        }
-      }
-      setIsLoading(false);
-    };
+    //       if (response.ok) {
+    //         const userData = await response.json();
+    //         setUser(userData);
+    //       } else {
+    //         // localStorage.removeItem('token');
+    //       }
+    //     } catch (error) {
+    //       console.error('Auth initialization error:', error);
+    //       // localStorage.removeItem('token');
+    //     }
+    //   }
+    //   setIsLoading(false);
+    // };
 
     // initializeAuth();
   }, []);
@@ -64,7 +62,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const data = await response.json();
     localStorage.setItem('token', data.token);
     localStorage.setItem('user', JSON.stringify(data.user));
-    setUser(localStorage.getItem('user') || null);
+    setUser(data.user);
   };
 
   const logout = () => {
@@ -73,7 +71,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isLoading }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

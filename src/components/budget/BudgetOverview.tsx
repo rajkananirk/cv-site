@@ -1,7 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
 interface Budget {
   category: string;
@@ -23,7 +22,6 @@ interface BudgetOverviewProps {
   currentMonth: string;
 }
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'];
 
 export function BudgetOverview({ budgets, transactions, currentMonth }: BudgetOverviewProps) {
   const getBudgetUsage = (budgets: Budget) => {
@@ -48,11 +46,6 @@ export function BudgetOverview({ budgets, transactions, currentMonth }: BudgetOv
     // .filter(b => b.month === currentMonth)
     .map(getBudgetUsage)
     .filter(usage => usage.budget > 0); // Only show categories with budgets set
-
-  const pieData = budgetUsage.map(({ category, spent }) => ({
-    name: category,
-    value: spent
-  }));
 
   return (
     <div className="space-y-6">

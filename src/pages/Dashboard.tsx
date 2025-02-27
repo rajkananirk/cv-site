@@ -9,7 +9,6 @@ import { BASE_URL } from '../lib/utils';
 import { BudgetForm } from '../components/budget/BudgetForm';
 import { TransactionList } from '../components/transactions/TransactionList';
 import { BudgetOverview } from '../components/budget/BudgetOverview';
-import { MonthlyBudgetSummary } from '../components/budget/MonthlyBudgetSummary';
 import { Progress } from '../components/ui/progress';
 
 interface Transaction {
@@ -37,8 +36,6 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'];
 export default function Dashboard() {
   const {  logout } = useAuth();
   
-  const [user, setUserData] = useState({});
-
   const navigate = useNavigate();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [totalIncome, setTotalIncome] = useState(0);
@@ -47,10 +44,9 @@ export default function Dashboard() {
   const [budgets, setBudgets] = useState<Budget[]>([]);
   const [showIncomeList, setShowIncomeList] = useState(false);
   const [showExpenseList, setShowExpenseList] = useState(false);
-  const [currentMonth, setCurrentMonth] = useState(new Date().toISOString().slice(0, 7));
+  const currentMonth = new Date().toISOString().slice(0, 7);
 
   useEffect(() => {  
-    setUserData(localStorage.getItem('user') || null)
     if (!localStorage.getItem('token')) {
       navigate('/');
       return;
@@ -243,7 +239,7 @@ export default function Dashboard() {
                     outerRadius={80}
                     label
                   >
-                    {categoryTotals.map((entry, index) => (
+                    {categoryTotals.map((_, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
