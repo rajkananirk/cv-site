@@ -475,7 +475,7 @@ function App() {
                         Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.
 
 
-                        </p>
+                        </p> 
                         <div className="space-y-4 w-full sm:flex sm:space-y-0 sm:space-x-10">
                             <a
                                 href="#"
