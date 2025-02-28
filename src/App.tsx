@@ -175,7 +175,7 @@ function App() {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null); const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isScrolled, setIsScrolled] = useState(false);
+    const [isScrolled] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
@@ -192,7 +192,7 @@ function App() {
     // Add this useEffect to handle scroll
     useEffect(() => {
         const handleScroll = () => {
-            const scrolled = window.scrollY > 50;
+            // const scrolled = window.scrollY > 50;
             // setIsScrolled(scrolled);
         };
 
