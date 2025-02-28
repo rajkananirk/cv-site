@@ -193,7 +193,7 @@ function App() {
     useEffect(() => {
         const handleScroll = () => {
             const scrolled = window.scrollY > 50;
-            setIsScrolled(scrolled);
+            // setIsScrolled(scrolled);
         };
 
         window.addEventListener('scroll', handleScroll);
